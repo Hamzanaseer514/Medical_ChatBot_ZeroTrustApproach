@@ -1,0 +1,26 @@
+{% extends 'chatbot/base.html' %}
+{% load static %}
+<!-- {% block extra_head %}
+<link rel="stylesheet" href="{% static 'chatbot/chat.css' %}">
+{% endblock %} -->
+{% block content %}
+<div class="chatbot-wrapper">
+    <!-- <h2 class="chatbottitle">Chat with Medical Chatbot</h2> -->
+    <div class="chat-container">
+        {% for message in history %}
+        <div class="message user-message">
+            <strong>User:</strong> {{ message.user }}
+        </div>
+        <div class="message bot-message">
+            <strong>Chatbot:</strong> {{ message.bot }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="query" class="form-control mt-2" placeholder="Ask a question..." required>
+        <button type="submit" class="btn btn-primary mt-2">Send</button>
+    </form>
+</div>
+{% endblock %}

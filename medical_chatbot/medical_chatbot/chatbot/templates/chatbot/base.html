@@ -1,0 +1,144 @@
+{% load static %}
+{% load rsa_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medical Chatbot</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'chatbot/style.css' %}">
+    <link rel="stylesheet" href="{% static 'chatbot/home.css' %}">
+    <link rel="stylesheet" href="{% static 'chatbot/login.css' %}">
+    <link rel="stylesheet" href="{% static 'chatbot/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'chatbot/upload.css' %}">
+    <link rel="stylesheet" href="{% static 'chatbot/chat.css' %}">
+    <link rel="stylesheet" href="{% static 'chatbot/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'chatbot/otp.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a class="navbar-brand" href="{% url 'home' %}">Medical Chatbot</a>
+            </div>
+            <div class="menu-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li class="close-sidebar">✕</li>
+                    {% if user.is_authenticated %}
+                        <li><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                        <li><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+                        <li><a class="nav-link" href="{% url 'upload_pdf' %}">Upload PDF</a></li>
+                        <li><a class="nav-link" href="{% url 'chat' %}">ChatBot</a></li>
+                    {% else %}
+                        <li><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        <li><a class="nav-link signup-btn" href="{% url 'signup' %}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+                {% if user.is_authenticated %}
+                    <div class="user-bubble desktop-user-bubble">
+                        <div class="bubble-letter"><span>{{ user.username|decrypt:user|first|upper }}</span></div>
+                        <div class="user-dropdown">
+                            <div class="dropdown-content">
+                                <p><strong>Username:</strong> {{ user.username|decrypt:user }}</p>
+                                <p><strong>Email:</strong> {{ user.email }}</p>
+                                <p><strong>Phone:</strong> {{ user.userprofile.phone_number|decrypt:user }}</p>
+                                <p><strong>CNIC:</strong> {{ user.userprofile.cnic|decrypt:user }}</p>
+                                <a class="signout-btn" href="{% url 'logout' %}">Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="mobile-user-bubble">
+                <div class="bubble-letter"><span>{{ user.username|decrypt:user|first|upper }}</span></div>
+                <div class="user-dropdown">
+                    <div class="dropdown-content">
+                        <p><strong>Username:</strong> {{ user.username|decrypt:user }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Phone:</strong> {{ user.userprofile.phone_number|decrypt:user }}</p>
+                        <p><strong>CNIC:</strong> {{ user.userprofile.cnic|decrypt:user }}</p>
+                        <a class="signout-btn" href="{% url 'logout' %}">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="navbar-overlay"></div>
+    </nav>
+    <div class="content-wrapper">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const navbarOverlay = document.querySelector('.navbar-overlay');
+            const closeSidebar = document.querySelector('.close-sidebar');
+            const body = document.body;
+
+            const toggleSidebar = () => {
+                menuToggle.classList.toggle('open');
+                navLinks.classList.toggle('active');
+                navbarOverlay.classList.toggle('show');
+                body.classList.toggle('no-scroll');
+            };
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            navbarOverlay.addEventListener('click', toggleSidebar);
+            closeSidebar.addEventListener('click', toggleSidebar);
+
+            const userBubble = document.querySelector('.desktop-user-bubble');
+            if (userBubble) {
+                userBubble.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const dropdown = userBubble.querySelector('.user-dropdown');
+                    dropdown.classList.toggle('active');
+                });
+            }
+
+            const mobileUserBubble = document.querySelector('.mobile-user-bubble');
+            if (mobileUserBubble) {
+                mobileUserBubble.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const dropdown = mobileUserBubble.querySelector('.user-dropdown');
+                    dropdown.classList.toggle('active');
+                });
+            }
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!userBubble?.contains(e.target)) {
+                    userBubble?.querySelector('.user-dropdown')?.classList.remove('active');
+                }
+                if (!mobileUserBubble?.contains(e.target)) {
+                    mobileUserBubble?.querySelector('.user-dropdown')?.classList.remove('active');
+                }
+            });
+
+            // Scroll effect for navbar
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

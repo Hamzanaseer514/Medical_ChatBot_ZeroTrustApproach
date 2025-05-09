@@ -1,0 +1,38 @@
+{% extends 'chatbot/base.html' %}
+{% load static %}
+
+{% block title %}Verify OTP{% endblock %}
+
+
+{% block content %}
+<div class="otp-container">
+    <div class="otp-card">
+        <h2>Verify Your OTP</h2>
+        <p>Enter the OTP sent to your email to complete verification.</p>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="otp-alert {% if message.tags == 'success' %}otp-alert-success{% else %}otp-alert-error{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if form.errors %}
+            <div class="otp-alert otp-alert-error">
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ field }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <form method="post" class="otp-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="otp-submit-btn">Verify OTP</button>
+        </form>
+        <p class="otp-back-link"><a href="{% url 'signup' %}">Back to Signup</a></p>
+    </div>
+</div>
+{% endblock %}

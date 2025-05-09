@@ -1,0 +1,136 @@
+{% extends 'chatbot/base.html' %}
+<!-- {% block title %}Zero Trust AI Security{% endblock %} -->
+
+{% load static %}
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title animate-text">Securing AI with Zero Trust</h1>
+    <p class="hero-subtitle slide-in">
+      Protecting the future of AI through cutting-edge Information Security principles.
+    </p>
+    <a href="#features" class="hero-btn">Explore Our Solution</a>
+  </div>
+  <canvas id="particle-canvas"></canvas>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+  <h2 class="section-title fade-in">Why Zero Trust for AI?</h2>
+  <p class="section-subtitle slide-in">
+    Our project leverages the Zero Trust security model to ensure AI systems are protected against modern threats.
+  </p>
+  <div class="cards-container">
+    <div class="card fade-in">
+      <img src="https://plus.unsplash.com/premium_photo-1675404521325-39f711db85ba?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8WmVybyUyMFRydXN0JTIwc2VjdXJpdHl8ZW58MHx8MHx8fDA%3D" alt="Zero Trust" class="card-img">
+      <h3>Zero Trust Architecture</h3>
+      <p>Every request is verified, ensuring no implicit trust in AI model interactions.</p>
+      <a href="#" class="btn">Learn More</a>
+    </div>
+    <div class="card fade-in">
+      <img src="https://plus.unsplash.com/premium_photo-1681010317870-44a7ca6f9bee?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8QUklMjBtb2RlbHN8ZW58MHx8MHx8fDA%3D" alt="AI Security" class="card-img">
+      <h3>AI Model Protection</h3>
+      <p>Secure AI models from data poisoning, model theft, and adversarial attacks.</p>
+      <a href="#" class="btn">Learn More</a>
+    </div>
+    <div class="card fade-in">
+      <img src="https://plus.unsplash.com/premium_photo-1681487746049-c39357159f69?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8RW5jcnlwdGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Encryption" class="card-img">
+      <h3>End-to-End Encryption</h3>
+      <p>Protect sensitive data and AI outputs with robust encryption protocols.</p>
+      <a href="#" class="btn">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- About Project Section -->
+<section class="about">
+  <h2 class="section-title fade-in">Our Mission</h2>
+  <p class="section-subtitle slide-in">
+    We are building a secure AI ecosystem using the Zero Trust principle, ensuring that every interaction, from data input to model output, is verified and protected. Our solution mitigates risks like unauthorized access, data breaches, and AI-specific threats.
+  </p>
+  <div class="stats-container">
+    <div class="stat fade-in">
+      <h3>99.9%</h3>
+      <p>Threat Detection Accuracy</p>
+    </div>
+    <div class="stat fade-in">
+      <h3>24/7</h3>
+      <p>Real-Time Monitoring</p>
+    </div>
+    <div class="stat fade-in">
+      <h3>100+</h3>
+      <p>Protected AI Models</p>
+    </div>
+  </div>
+</section>
+
+<!-- <script src="{% static 'js/particles.js' %}"></script> -->
+<script>
+  // Particle Effect for Hero Section
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = 400;
+
+  const particles = [];
+  const particleCount = 100;
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = Math.random() * 1 - 0.5;
+      this.speedY = Math.random() * 1 - 0.5;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.size > 0.2) this.size -= 0.01;
+    }
+    draw() {
+      ctx.fillStyle = 'rgba(0, 183, 235, 0.5)';
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function init() {
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((particle, index) => {
+      particle.update();
+      particle.draw();
+      if (particle.size <= 0.2) {
+        particles.splice(index, 1);
+        particles.push(new Particle());
+      }
+    });
+    requestAnimationFrame(animate);
+  }
+
+  init();
+  animate();
+
+  // Scroll Animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in, .slide-in').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+{% endblock %}

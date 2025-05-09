@@ -1,0 +1,265 @@
+/* Scoped Cyber-Security Themed Upload Page */
+.upload-container {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0a192f, #1e3a8a, #0a192f);
+    background-size: 200% 200%;
+    animation: cyberFlow 12s ease infinite;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+    color: #e2e8f0;
+}
+
+/* Circuit Pattern Overlay */
+.upload-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600"><path d="M100 100h400M100 200h400M100 300h400M100 400h400M100 100v400M200 100v400M300 100v400M400 100v400" stroke="rgba(6,182,212,0.2)" stroke-width="2"/></svg>');
+    background-size: 200px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Animated Particles */
+.upload-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600"><circle cx="150" cy="150" r="4" fill="#06b6d4" opacity="0.7"/><circle cx="450" cy="250" r="3" fill="#7c3aed" opacity="0.6"/><circle cx="250" cy="450" r="5" fill="#06b6d4" opacity="0.5"/><circle cx="350" cy="100" r="3" fill="#7c3aed" opacity="0.6"/><circle cx="500" cy="400" r="4" fill="#06b6d4" opacity="0.7"/></svg>');
+    background-size: 150px;
+    animation: particleDance 10s ease infinite;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+@keyframes cyberFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes particleDance {
+    0% { transform: translate(0, 0); opacity: 0.6; }
+    25% { transform: translate(20px, -20px); opacity: 0.8; }
+    50% { transform: translate(-20px, 20px); opacity: 0.6; }
+    75% { transform: translate(20px, 20px); opacity: 0.8; }
+    100% { transform: translate(0, 0); opacity: 0.6; }
+}
+
+/* Heading with Pulse Effect */
+.upload-container h2 {
+    text-align: center;
+    background: linear-gradient(90deg, #06b6d4, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px rgba(6, 182, 212, 0.7);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { text-shadow: 0 0 15px rgba(6, 182, 212, 0.7); }
+    50% { text-shadow: 0 0 25px rgba(6, 182, 212, 1); }
+}
+
+/* Glassmorphic Alerts */
+.upload-container .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    background: rgba(10, 25, 47, 0.7);
+    backdrop-filter: blur(10px);
+    color: #e2e8f0;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.upload-container .alert-error {
+    border-color: #f5c6cb;
+    color: #f8d7da;
+    text-shadow: 0 0 5px rgba(248, 215, 218, 0.5);
+}
+
+.upload-container .alert-success {
+    border-color: #c3e6cb;
+    color: #d4edda;
+    text-shadow: 0 0 5px rgba(212, 237, 218, 0.5);
+}
+
+/* Upload Form */
+.upload-container .upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* File Input with Animated Upload Effect */
+.upload-container .file-input-wrapper {
+    position: relative;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.upload-container .upload-form input[type="file"] {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid rgba(6, 182, 212, 0.2);
+    border-radius: 8px;
+    font-size: 16px;
+    background: rgba(10, 25, 47, 0.7);
+    backdrop-filter: blur(10px);
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upload-container .upload-form input[type="file"]:hover {
+    border-color: #06b6d4;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+/* Custom File Upload Button */
+.upload-container .upload-form input[type="file"]::-webkit-file-upload-button,
+.upload-container .upload-form input[type="file"]::-moz-file-upload-button {
+    background: linear-gradient(45deg, #06b6d4, #7c3aed);
+    color: #e2e8f0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: box-shadow 0.3s ease;
+}
+
+.upload-container .upload-form input[type="file"]::-webkit-file-upload-button:hover,
+.upload-container .upload-form input[type="file"]::-moz-file-upload-button:hover {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.7);
+}
+
+/* File Upload Animation */
+.upload-container .file-input-wrapper .file-upload-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.3), rgba(124, 58, 237, 0.3));
+    border-radius: 8px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.upload-container .upload-form input[type="file"]:valid + .file-upload-animation {
+    animation: uploadProgress 2s ease forwards;
+}
+
+@keyframes uploadProgress {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+/* Particles on File Selection */
+.upload-container .file-input-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600"><circle cx="150" cy="150" r="3" fill="#06b6d4" opacity="0.7"/><circle cx="450" cy="250" r="2" fill="#7c3aed" opacity="0.6"/><circle cx="250" cy="450" r="4" fill="#06b6d4" opacity="0.5"/></svg>');
+    background-size: 100px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+
+.upload-container .upload-form input[type="file"]:valid ~ .file-upload-animation + ::after {
+    animation: particleBurst 1s ease forwards;
+}
+
+@keyframes particleBurst {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.8; }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+}
+
+/* Holographic Upload Button */
+.upload-container .upload-form .btn-primary {
+    background: linear-gradient(45deg, #06b6d4, #7c3aed);
+    color: #e2e8f0;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 200px;
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upload-container .upload-form .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+    pointer-events: none;
+}
+
+.upload-container .upload-form .btn-primary:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.upload-container .upload-form .btn-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .upload-container {
+        margin: 20px;
+        padding: 20px;
+    }
+    .upload-container h2 {
+        font-size: 2rem;
+    }
+    .upload-container .upload-form input[type="file"] {
+        font-size: 14px;
+        padding: 12px;
+    }
+    .upload-container .upload-form .btn-primary {
+        font-size: 14px;
+        padding: 12px 25px;
+    }
+    .upload-container .alert {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

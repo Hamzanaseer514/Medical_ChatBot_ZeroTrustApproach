@@ -1,0 +1,49 @@
+{% extends 'chatbot/base.html' %}
+{% load rsa_tags %}
+{% load static %}
+{% block content %}
+<div class="security-dashboard"> <!-- WRAPPER DIV -->
+
+    <h2>Welcome, {{ user.username|decrypt:user }}!</h2>
+    <h3>Your Secure Documents</h3>
+
+    {% if documents %}
+    <ul>
+        {% for doc in documents %}
+        <!-- <li>{{ doc.pdf_file.name }} (Uploaded on {{ doc.uploaded_at }})</li> -->
+        <li>{{ doc.pdf_file.name }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No documents uploaded yet.</p>
+    {% endif %}
+
+    <a href="{% url 'upload_pdf' %}" class="btn btn-primary">Upload New PDF</a>
+    <a href="{% url 'chat' %}" class="btn btn-success">Chat with Bot</a>
+    <div>
+        <div>
+            <div>🔒</div>
+            <div>Upload PDF</div>
+            <div>Securely upload your PDF document to start the process.</div>
+        </div>
+    
+        <div>
+            <div>🛡️</div>
+            <div>Upload Successful</div>
+            <div>Your PDF is securely uploaded. Ready to proceed!</div>
+        </div>
+    
+        <div>
+            <div>💬</div>
+            <div>Chat with Bot</div>
+            <div>Interact with the AI bot to access secure document insights.</div>
+        </div>
+    
+        <div>
+            <div>🔍</div>
+            <div>Get Information</div>
+            <div>Receive precise, secure answers based on your PDF content.</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

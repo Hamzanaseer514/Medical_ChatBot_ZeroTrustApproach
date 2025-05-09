@@ -1,0 +1,25 @@
+{% extends 'chatbot/base.html' %}
+{% load static %}
+
+<!-- {% block extra_head %}
+<link rel="stylesheet" href="{% static 'chatbot/upload.css' %}">
+{% endblock %} -->
+
+{% block content %}
+<div class="upload-container">
+    <h2>Upload Secure Document</h2>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" class="upload-form">
+        {% csrf_token %}
+        <div class="file-input-wrapper">
+            <input type="file" name="pdf_file" accept=".pdf" required>
+            <span class="file-upload-animation"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+</div>
+{% endblock %}
